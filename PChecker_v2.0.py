@@ -86,7 +86,7 @@ def check_password():
     final_entropy = max(0, base_entropy - repeat_penalty)
     # 20 bits penalty if the password is found in the leaked passwords list
     if pw in leaked_pw:
-        final_entropy -= 20 
+        final_entropy -= 45 
 
     # Setting minimum entropy treshold at 0
     final_entropy = max(0, final_entropy)
