@@ -43,7 +43,8 @@ def entropy(password):
 def penalty(password):
     counts = Counter(password)
     # Each repeated character (beyond the first occurrence) adds a penalty of 2
-    return sum((count - 1) * 2 for count in counts.values() if count > 1)
+    return sum((count - 1) * 2 for count in counts.values() 
+    if count > 1)
 #Function wich calculates the time it takes for the password to be guessed based on the formula 2 ** entropy / guesses per sec
 def crack_time(entropy_val):
     if entropy_val > 0:
@@ -84,10 +85,11 @@ def check_password():
 
     # Calculate final entropy
     final_entropy = max(0, base_entropy - repeat_penalty)
-    # 20 bits penalty if the password is found in the leaked passwords list
+    # 45 bits penalty if the password is found in the leaked passwords list
+    leaked_feedback = ""
     if pw in leaked_pw:
         final_entropy -= 45 
-
+        leaked_feedback = "Password is leaked! Choose another password."
     # Setting minimum entropy treshold at 0
     final_entropy = max(0, final_entropy)
 
@@ -104,7 +106,7 @@ def check_password():
 
     result_label.config(
         text=(
-            f"{strength}\n"
+            f"{strength}\n{leaked_feedback}\n"
             f"Crack Time: {format_time(crack_time_val)}\n"
             f"Entropy: {final_entropy:.2f} bits"
         ),
@@ -118,7 +120,7 @@ root.geometry("400x300")
 root.resizable(False, False)
 
 tk.Label(root, text="Enter password:", font=("Arial", 12)).pack(pady=10)
-entry = tk.Entry(root, show="*", font=("Arial", 12), width=30)
+entry = tk.Entry(root, show="", font=("Arial", 12), width=30)
 entry.pack(pady=5)
 
 tk.Button(root, text="Check Strength", command=check_password,
@@ -128,3 +130,4 @@ result_label = tk.Label(root, text="", font=("Arial", 10), wraplength=350)
 result_label.pack(pady=20)
 
 root.mainloop()
+
