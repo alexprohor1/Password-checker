@@ -3,7 +3,7 @@ from tkinter import messagebox
 import math
 from collections import Counter
 
-# Lowercase variables (previously uppercase)
+# Global variables
 special_char = "!@#$%^&*(),.?\":{}|<>"
 common_pw_file = "password_list.txt"
 leaked_pw_file = "000webhost.txt"
